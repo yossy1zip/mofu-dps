@@ -1,0 +1,27 @@
+name: MofuDPS
+version: ${project.version}
+main: net.mofucraft.mofudps.MofuDPS
+api-version: '1.21'
+author: mofucraft
+description: プレイヤーがMobに与えたDPSをリアルタイムで計測するプラグイン
+softdepend: [PlaceholderAPI]
+
+commands:
+  mofudps:
+    description: MofuDPSのメインコマンド
+    usage: /<command> <measure|ranking|reset|reload>
+    aliases: [mdps]
+
+permissions:
+  mofudps.measure:
+    description: /mofudps measure を実行する権限
+    default: true
+  mofudps.ranking:
+    description: /mofudps ranking を実行する権限
+    default: true
+  mofudps.reset:
+    description: /mofudps reset を実行する権限
+    default: op
+  mofudps.reload:
+    description: /mofudps reload を実行する権限
+    default: op

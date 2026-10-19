@@ -1,0 +1,66 @@
+# =========================================================
+#  MofuDPS 設定ファイル
+# =========================================================
+
+# ランキング/最大DPSの永続化先。sqlite または mysql
+storage:
+  type: sqlite
+  sqlite:
+    # plugins/MofuDPS/ 以下に生成されるファイル名
+    file: "mofudps.db"
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "mofudps"
+    username: "root"
+    password: ""
+    table-prefix: "mofudps_"
+    useSSL: false
+
+ranking:
+  # /mofudps ranking や %mofudps_rank_<N>_*% で表示する人数のデフォルト値
+  display-count: 10
+
+damage:
+  # 直近平均DPSの集計ウィンドウ(秒)。仕様上は5秒固定だが念のため設定可能にしてある
+  window-seconds: 5
+
+# ---------------------------------------------------------
+# メッセージ設定
+# 色コードは "&" を使用可能 (例: &a緑, &c赤, &7灰色)
+# 各メッセージで使える差し込みプレースホルダーはコメントに記載
+# ---------------------------------------------------------
+messages:
+  # すべてのメッセージの先頭に付与される接頭辞
+  prefix: "&7[&bMofuDPS&7] "
+
+  no-permission: "&cこのコマンドを実行する権限がありません。"
+  player-only: "&cこのコマンドはプレイヤーのみ実行できます。"
+  unknown-command: "&c不明なサブコマンドです。 &7/mofudps <measure|ranking|reset|reload>"
+  reloaded: "&aconfig.ymlを再読み込みしました。"
+
+  measure:
+    usage: "&c使用方法: /mofudps measure <秒数>"
+    invalid-seconds: "&c秒数は1以上の整数で指定してください。"
+    already-running: "&c既に計測中です。終了までお待ちください。"
+    # %seconds_left% : カウントダウン残り秒数
+    countdown: "&e計測開始まで &c%seconds_left% &e秒..."
+    start: "&a計測開始！"
+    # %seconds% : 計測時間(秒) / %dps% : 平均DPS / %total_damage% : 合計ダメージ
+    result: "&b%seconds%秒間の平均DPS: &f%dps%&b (合計ダメージ: %total_damage%)"
+
+  ranking:
+    # %count% : 表示件数
+    header: "&6=== DPSランキング TOP%count% ==="
+    # %rank% : 順位 / %player% : プレイヤー名 / %dps% : 過去最大DPS
+    entry: "&e%rank%位: &f%player% &7- &c%dps% DPS"
+    empty: "&7まだ記録がありません。"
+    footer: "&6========================="
+
+  reset:
+    usage: "&c使用方法: /mofudps reset <all|プレイヤー名> confirm"
+    confirm-required: "&c本当に削除する場合は末尾に confirm を付けて再実行してください。"
+    # %player% : プレイヤー名
+    all-done: "&aすべてのDPS記録をリセットしました。"
+    player-done: "&a%player% のDPS記録をリセットしました。"
+    player-not-found: "&cそのプレイヤーの記録が見つかりません。"
